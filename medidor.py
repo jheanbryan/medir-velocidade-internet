@@ -1,15 +1,18 @@
-import speedtest
-import datetime
-import time
+#speedtest -> pip install speedtest-cli
+#pip install pandas
+# https://pypi.org/project/speedtest-cli/
+import speedtest as sp
+test = sp.Speedtest()
 
-# Função para testar velocidade de conexão
-def teste_internet():
-    s = speedtest.Speedtest()
-    s.get_closest_servers()
-    s.get_best_server()
+try:
+    download = (test.download()) / 1e+6
+    upload = (test.upload()) / 1e+6
+    try:
+        print('\nDOWNLOAD: {:.2f} Mbps'.format(download))
+        print('UPLOAD: {:.2f} Mbps\n'.format(upload))
+    except:
+        print('Error')
+except:
+    print('Erro ao conectar ao servidor')
 
-    velocidade_download = s.download(threads = None)
-    velocidade_upload = s.upload(threads = None) 
-    print(velocidade_download)
-    print(velocidade_upload)
-    
+#adicionar função para salvar os dados e o horário em arquivo??
