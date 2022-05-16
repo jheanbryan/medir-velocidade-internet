@@ -1,18 +1,23 @@
 #speedtest -> pip install speedtest-cli
 #pip install pandas
-# https://pypi.org/project/speedtest-cli/
+#https://pypi.org/project/speedtest-cli/
 import speedtest as sp
-test = sp.Speedtest()
+import datetime
 
+test = sp.Speedtest()
+now = datetime.datetime.now()
+date = now.strftime("%d/%m/%Y")
+hour = now.strftime("%H:%M")
 try:
     download = (test.download()) / 1e+6
     upload = (test.upload()) / 1e+6
     try:
-        print('\nDOWNLOAD: {:.2f} Mbps'.format(download))
-        print('UPLOAD: {:.2f} Mbps\n'.format(upload))
-    except:
-        print('Error')
-except:
-    print('Erro ao conectar ao servidor')
+        print('DOWNLOAD: {:.2f} Mbps'.format(download))
+        print('UPLOAD: {:.2f} Mbps'.format(upload))
+        with open('relatorio.txt', 'a') as arquivo:
+            arquivo.write('\n{} - {}    Download:{:.2f}    Upload:{:.2f}'.format(date, hour, download, upload))
 
-#adicionar função para salvar os dados e o horário em arquivo??
+    except:
+        print('[ERRO]: Desconhecido')
+except:
+    print('[ERRO]: ao conectar ao servidor')
