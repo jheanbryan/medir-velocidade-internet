@@ -1,6 +1,18 @@
-Consumindo uma biblioteca que mede a velociade de download e upload!<br>
-instalar a biblioteca Speedtest e o pandas:<br>
-pip install speedtest-cli<br>
-pip install pandas<br>
-Documentação da biblioteca:
- https://pypi.org/project/speedtest-cli/
+# Medidor de velocidade de internet
+
+## Dependencias
+- speedtest-cli
+- pandas
+- pysimplegui
+
+## Como usar
+Execute o <strong>main.py</strong> e selecione ok, após isso os dados serão exibidos na tela e salvos no arquivo txt.
+
+
+|<img align="center" src="assets-github/tela1.png" alt="" />|
+| ------------- |
+
+|<img align="center" src="assets-github/tela2.png" />|
+ ------------- |
+
+|<img align="center" src="assets-github/txt.png" />|
