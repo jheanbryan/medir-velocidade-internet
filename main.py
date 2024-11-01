@@ -9,20 +9,20 @@ def medir_velocidade():
     hour = now.strftime("%H:%M")
 
     try:
-        print('Medindo...')
-        download = (test.download()) / 1e+6
-        upload = (test.upload()) / 1e+6
+        sg.popup('Medindo (Isto pode levar alguns instantes)...')
+        download = test.download() / 1e+6  # Conversão para Mbps
+        upload = test.upload() / 1e+6
 
-        velocidade_download = 'DOWNLOAD: {:.2f} Mbps'.format(download)
-        velocidade_upload = 'UPLOAD: {:.2f} Mbps'.format(upload)
+        velocidade_download = f'DOWNLOAD: {download:.2f} Mbps'
+        velocidade_upload = f'UPLOAD: {upload:.2f} Mbps'
 
         with open('relatorio.txt', 'a') as arquivo:
-            arquivo.write('\n{} - {}    Download:{:.2f} Mbps    Upload:{:.2f} Mbps'.format(date, hour, download, upload))
+            arquivo.write(f'\n{date} - {hour}    Download: {download:.2f} Mbps    Upload: {upload:.2f} Mbps')
 
         return velocidade_download, velocidade_upload
 
-    except:
-        print('[ERRO]: ao conectar ao servidor')
+    except Exception as e:
+        return '[ERRO]: ao conectar ao servidor', str(e)
 
 def first_window():
     sg.theme('Dark Grey 13') 
@@ -33,17 +33,11 @@ def first_window():
             ]
 
     window = sg.Window('Medidor de Velocidade', layout, size=(300, 70))
-    while True:
-        event, values = window.read()
-        if event == sg.WIN_CLOSED or event == 'Cancelar':
-            cancel = True
-            window.close()
-            return cancel
-            break
-        else:
-            cancel = False
-            window.close()
-            return cancel
+    event, values = window.read()
+    window.close()
+
+    return event == 'Iniciar'
+
 def last_window(download, upload):
     layout = [ 
         [sg.Text(download)],
@@ -52,18 +46,17 @@ def last_window(download, upload):
         [sg.Button('OK')]
     ]
 
-    window_res = sg.Window('Medidor de Velocidade', layout)
+    window_res = sg.Window('Resultado do Teste', layout)
 
     event, values = window_res.read()
-    if event == sg.WIN_CLOSED or event == 'Ok':
-        window_res.close()
+    window_res.close()
 
+def main():
+    if first_window():
+        velocidade_download, velocidade_upload = medir_velocidade()
+        last_window(velocidade_download, velocidade_upload)
+    else:
+        sg.popup('Teste cancelado.')
 
-cancel = first_window()
-if cancel == True:
-    print('Cancelou')
-else:
-    print('Não cancelou')
-    velocidade_download, velocidade_upload = medir_velocidade()
-    last_window(velocidade_download, velocidade_upload)
-
+if __name__ == "__main__":
+    main()

@@ -1,2 +1,5 @@
 Relatório das medições realizadas
 23/08/2023 - 13:06    Download:75.39 Mbps    Upload:52.53 Mbps
+01/11/2024 - 10:22    Download:205.55 Mbps    Upload:142.51 Mbps
+01/11/2024 - 10:25    Download: 205.59 Mbps    Upload: 139.55 Mbps
+01/11/2024 - 10:31    Download: 205.23 Mbps    Upload: 138.95 Mbps
